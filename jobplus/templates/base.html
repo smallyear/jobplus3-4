@@ -3,10 +3,13 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}{% endblock %}</title>
-        <link rel="stylesheet" href="http://labfile.oss.aliyuncs.com/courses/923/week7/code/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+         {% block head_css %}
+        <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="static/main.css">
+        {% endblock %}
     </head>
     <body>
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -35,41 +38,24 @@
     </ul>
 
     </div>
-
-
-
-
-
-
 </div>
 </nav>
 
 <div class="container">
-  {% block body %}{% endblock %}
+     {% block body %}{% endblock %}
+   
 </div>
-  {% block footer %}
-<div id="footer">
-    <div class="wrapper">
-        <div class="inner_wrapper">
-            <a href="/" target="_blank" rel="nofollow">帮助中心</a>
-            <a href="/" target="_blank" rel="nofollow">联系我们</a>
-            <a href="/" target="_blank" rel="nofollow">招聘解决方案</a>
-            <span class="tel">服务热线：<em>400-666-6666 (9:00 -18:00)</em></span>
-        </div>
-        <div class="copyright">
-            <span><em>&copy;</em>2018 jobplus</span>
-            <a target="_blank" href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action" rel="nofollow">京ICP备66666666号-2</a>
-            <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=66666666666666" rel="nofollow">京公网安备 66666666666666号</a>
-        </div>
-    </div>
-</div>
-
-  {% endblock %}
+    {% block footer %}
+        <footer class="footer navbar-fixed-bottom">
+            <div class="container">
+                <p>&copy; jobplus 2018</p>
+            </div>
+        </footer>
+    {% endblock %}
 
     {% block tail_js %}
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-      <script src="static/main.js"></script>
     {% endblock %}
     </body>    
 </html>
