@@ -1,6 +1,7 @@
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
+from flask import url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -44,6 +45,8 @@ class User(Base, UserMixin):
 
     def __repr__(self):
         return '<User:{}>'.format(self.username)
+
+    is_disable = db.Column(db.Boolean, default=False)
 
     @property
     def password(self):
@@ -153,6 +156,36 @@ class Company(Base):
         return '<Company {}>'.format(self.name)
 
 
+class CompanyDetail(Base):
+    __tablename__ = 'company_detail'
+
+    id = db.Column(db.Integer, primary_key=True)
+    logo = db.Column(db.String(256), nullable=False)
+    site = db.Column(db.String(128), nullable=False)
+    location = db.Column(db.String(24), nullable=False)
+    # 一句话描述
+    description = db.Column(db.String(100))
+    # 关于我们，公司详情描述
+    about = db.Column(db.String(1024))
+    # 公司标签，多个标签用逗号隔开，最多10个
+    tags = db.Column(db.String(128))
+    # 公司技术栈，多个技术用逗号隔开，最多10个
+    stack = db.Column(db.String(128))
+    # 团队介绍
+    team_introduction = db.Column(db.String(256))
+    # 公司福利，多个福利用分号隔开，最多 10 个
+    welfares = db.Column(db.String(256))
+    # 公司领域
+    field = db.Column(db.String(128))
+    # 融资进度
+    finance_stage = db.Column(db.String(128))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='SET NULL'))
+    user = db.relationship('User', uselist=False, backref=db.backref('company_detail', uselist=False))
+
+    def __repr__(self):
+        return '<CompanyDetail {}>'.format(self.id)
+
+
 class Job(Base):
     __tablename__ = 'job'
 
@@ -176,8 +209,12 @@ class Job(Base):
     def __repr__(self):
         return '<Job {}>'.format(self.name)
 
+    @property
+    def url(self):
+        return url_for('job.detail', job_id=self.id)
 
-class Dilivery(Base):
+
+class Delivery(Base):
     __tablename__ = 'delivery'
 
     # 等待企业审核

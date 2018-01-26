@@ -1,18 +1,4 @@
-{% macro render_job_details(job) %}
-    <div class="caption">
-        <a href="/jobs/{{ job.id }}" target="_blank">
-        <h4 class="job_name">{{ job.name }}</h4>
-        </a>
-        <p>
-            <small class="job_info">{{ job.updated_at }}</small>
-            <small class="requirement">{{ job.experience_requirement }}</small>
-        </p>
-        <p class="salary">{{ job.salary_low }}~{{ job.salary_high }}</p>
-        <hr style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="100%" color=#987cb9 SIZE=3>
-        <p class="company_name">{{ job.company.name }}</p>
-        <p class="company_desc">{{ job.company.team_introduction }}</p>
-        </div>
-{% endmacro %}
+<!-- 删除没用的方法 -->
 
 {% macro render_company_details(company) %}
     <div class="thumbnail">
@@ -47,6 +33,7 @@
         {% for error in field.errors %}
         <span class="help-block">{{ error }}</span>
         {% endfor %}
+        <span class="help-block">{{ field.errors.0 }}</span>
       {% endif %}
     </div>
     {% endif %}
